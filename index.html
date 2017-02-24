@@ -64,8 +64,8 @@
         <h1>Buzzbold Coding Exam</h1>
         <form id="form-state-request">
           <label>Please enter the 2 letter state abbreviation</label>
-          <input name="state" type="text"/>
-          <input type="submit" value="submit" onblur="verifyState()" disabled="true"/>
+          <input name="state" type="text" onblur="verifyState()"/>
+          <input type="submit" value="submit" onclick="pageHandler()"/>
         </form>
         <p id="error" ></p>
       </div>

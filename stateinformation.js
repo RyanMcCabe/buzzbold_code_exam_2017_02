@@ -10,6 +10,7 @@
 function pageHandler(event) {
     event.preventDefault();
     //perform ajax to get the data from the openstates api
+    resetErrors();
     $.ajax({
         url: "https://openstates.org/api/v1/legislators/?state=" + $('[name="state"]').val,
         success: function(response) {
@@ -31,8 +32,7 @@ function pageHandler(event) {
  */
 function verifyState () {
     event.preventDefault();
-    var userState = $('[name="state"]').val.toUpperCase();
-    console.log(userState);
+    var userState = $('[name="state"]').val;
     var validState = false;
     var stateAbbreviations = ["DC","AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA",
         "ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK",
@@ -57,8 +57,8 @@ function verifyState () {
 /**
  * Will find take the state data and create modify the index page to create a bootstrap table
  */
-function displayData (){
-    console.log()
+function displayData (response){
+    console.log(response)
 }
 /**
  * resets errors on the screen
