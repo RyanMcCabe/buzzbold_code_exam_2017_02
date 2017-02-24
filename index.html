@@ -65,9 +65,9 @@
         <form id="form-state-request">
           <label>Please enter the 2 letter state abbreviation</label>
           <input name="state" type="text"/>
-          <input type="submit" value="submit" />
+          <input type="submit" value="submit" onblur="verifyState()" disabled="true"/>
         </form>
-        <p id="error" type="hidden"></p>
+        <p id="error" ></p>
       </div>
     </div><!-- /.container -->
 
