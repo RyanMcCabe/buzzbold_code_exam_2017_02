@@ -33,6 +33,7 @@ function pageHandler(event) {
  * else provide an error for the user
  */
 function verifyState () {
+    resetErrors();
     var userState = $('#state').val().toUpperCase();
     var validState = false;
     var stateAbbreviations = ["DC","AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA",
@@ -45,7 +46,9 @@ function verifyState () {
             return validState;
         }
     });
-    console.log(validState);
+    if (!validState){
+        showErrors();
+    }
 
 }
 /**
@@ -61,4 +64,14 @@ function resetErrors (){
     $("#error")
         .attr("hidden", true)
         .html("");
+    $('[value="submit"]')
+        .prop("disabled", false);
+}
+
+function showErrors (){
+    $("#error")
+        .attr("hidden", false)
+        .html("Please enter a valid state");
+    $('[value="submit"]')
+        .prop("disabled", true);
 }
