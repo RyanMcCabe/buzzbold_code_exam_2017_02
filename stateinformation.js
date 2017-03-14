@@ -11,9 +11,11 @@ function pageHandler(event) {
     event.preventDefault();
     //perform ajax to get the data from the openstates api
     resetErrors();
+    var state = $("#state").val();
     $.ajax({
-        url: "https://openstates.org/api/v1/legislators/?state=" + $('[name="state"]').val,
+        url: "https://openstates.org/api/v1/legislators/?state=" + state,
         success: function(response) {
+            console.log(response);
             displayData(response);
         },
         error: function(){
@@ -31,27 +33,19 @@ function pageHandler(event) {
  * else provide an error for the user
  */
 function verifyState () {
-    event.preventDefault();
-    var userState = $('[name="state"]').val;
+    var userState = $('#state').val().toUpperCase();
     var validState = false;
     var stateAbbreviations = ["DC","AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA",
         "ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK",
         "OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
     //loop through each state and compare to see if it matches the users state
-    $.each(stateAbbreviations), function(state) {
-        if (state == userState){
+    $(stateAbbreviations).each(function(index) {
+        if (stateAbbreviations[index] == userState){
             validState = true;
-            //allow the submit button to work
-            $('[type="submit"]').prop("disabled", false);
-            resetErrors();
-        } else {
-            //display an error
-            $("#error")
-                .attr("hidden", false)
-                .html("This is not a valid state");
-            $('[type="submit"]').prop("disabled", true);
+            return validState;
         }
-    };
+    });
+    console.log(validState);
 
 }
 /**
