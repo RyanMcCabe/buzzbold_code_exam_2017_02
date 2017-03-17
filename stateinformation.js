@@ -15,7 +15,6 @@ function pageHandler(event) {
     $.ajax({
         url: "https://openstates.org/api/v1/legislators/?state=" + state,
         success: function(response) {
-            console.log(response);
             displayData(response);
         },
         error: function(){
@@ -49,17 +48,31 @@ function verifyState () {
     if (!validState){
         showErrors();
     }
-
 }
+
 /**
  * Will find take the state data and create modify the index page to create a bootstrap table
  */
 function displayData (response){
-    console.log(response)
+    console.log(response);
+    $(response).each(function(index) {
+        //organize all of the data we are adding to the table
+        var image = response[index].photo_url;
+        var name = response[index].full_name;
+        var district = response[index].district;
+        var chamer = response[index].chamber;
+        var phoneNumber = response[index].office_phone;
+        var email = response[index].email;
+
+        //create a row to append to the table
+        var row = $("<tr></tr>").append($("[thead]");
+        ($("<img>", {src: image, alt: name}));
+    });
 }
 /**
  * resets errors on the screen
  */
+
 function resetErrors (){
     $("#error")
         .attr("hidden", true)
