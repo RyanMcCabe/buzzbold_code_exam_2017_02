@@ -54,25 +54,42 @@ function verifyState () {
  * Will find take the state data and create modify the index page to create a bootstrap table
  */
 function displayData (response){
-    console.log(response);
-    $(response).each(function(index) {
-        //organize all of the data we are adding to the table
-        var image = response[index].photo_url;
-        var name = response[index].full_name;
-        var district = response[index].district;
-        var chamer = response[index].chamber;
-        var phoneNumber = response[index].office_phone;
-        var email = response[index].email;
+    var cleanedResponse = organizeResponse(response);
 
+    $(cleanedResponse).each(function(index){
         //create a row to append to the table
-        var row = $("<tr></tr>").append($("[thead]");
-        ($("<img>", {src: image, alt: name}));
+        var row = $("<tr></tr>");
+        var singleLegislator = cleanedResponse[index];
+        $.each(singleLegislator, function(key, value){
+            row.append("<td>" + singleLegislator[key] + "</td>");
+            $("thead").append(row);
+        });
     });
 }
 /**
- * resets errors on the screen
+ *  sorts through the response and parses it down to an array with only the data needed
+ *  for each legislator
  */
 
+function organizeResponse (response){
+    var cleanedResponseCollection = [];
+    $(response).each(function(index) {
+        //organize all of the data we are adding to the table into an object
+        var dataObject = {};
+        dataObject.image = response[index].photo_url;
+        dataObject.name = response[index].full_name;
+        dataObject.district = response[index].district;
+        dataObject.chamer = response[index].chamber;
+        dataObject.phoneNumber = response[index].office_phone;
+        dataObject.email = response[index].email;
+        cleanedResponseCollection.push(dataObject);
+    });
+    return cleanedResponseCollection;
+}
+
+/**
+ * resets errors on the screen
+ */
 function resetErrors (){
     $("#error")
         .attr("hidden", true)
