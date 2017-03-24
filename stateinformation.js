@@ -55,13 +55,22 @@ function verifyState () {
  */
 function displayData (response){
     var cleanedResponse = organizeResponse(response);
-
     $(cleanedResponse).each(function(index){
         //create a row to append to the table
         var row = $("<tr></tr>");
         var singleLegislator = cleanedResponse[index];
+
         $.each(singleLegislator, function(key, value){
-            row.append("<td>" + singleLegislator[key] + "</td>");
+            //handles the table data to create an html image
+            if (key == "image"){
+                var input = $("<img />",{src: singleLegislator[key], alt: singleLegislator["name"]});
+                var tableData = $("<td></td>").append(input);
+                row.append(tableData);
+            }
+            else {
+                //handles all other table data
+                row.append("<td>" + singleLegislator[key] + "</td>");
+            }
             $("thead").append(row);
         });
     });
