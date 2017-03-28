@@ -54,6 +54,9 @@ function verifyState () {
  * Will find take the state data and create modify the index page to create a bootstrap table
  */
 function displayData (response){
+    $('table').show();
+    $('tbody').children().remove();
+
     var cleanedResponse = organizeResponse(response);
     $(cleanedResponse).each(function(index){
         //create a row to append to the table
@@ -71,7 +74,7 @@ function displayData (response){
                 //handles all other table data
                 row.append("<td>" + singleLegislator[key] + "</td>");
             }
-            $("thead").append(row);
+            $("tbody").append(row);
         });
     });
 }
